@@ -1,0 +1,209 @@
+{
+    "%1 of %2 mounted": {
+        "%1 of %2 mounted": "%2 个分区中已挂载 %1 个"
+    },
+    "%1 of %2 used": {
+        "%1 of %2 used": "共 %2，已用 %1"
+    },
+    "%1 used of %2 · %3%": {
+        "%1 used of %2 · %3%": "已用 %1 / 共 %2 · %3%"
+    },
+    "Action failed": {
+        "Action failed": "操作失败"
+    },
+    "Already mounted": {
+        "Already mounted": "该分区已挂载"
+    },
+    "Already working on this device": {
+        "Already working on this device": "该设备已有操作在进行"
+    },
+    "Also print the number of detected drives under the icon.": {
+        "Also print the number of detected drives under the icon.": "同时在图标下方显示检测到的设备数量。"
+    },
+    "Announce volume mount points, which udisks usually mounts a second later. Off by default: the card shows this state directly.": {
+        "Announce volume mount points, which udisks usually mounts a second later. Off by default: the card shows this state directly.": "提示分区挂载点（udisks 通常在插入后一秒左右自动挂载）。默认关闭：卡片已直接显示该状态。"
+    },
+    "Announce when a drive appears or is pulled out.": {
+        "Announce when a drive appears or is pulled out.": "在设备出现或被拔出时提示。"
+    },
+    "Another action is still running": {
+        "Another action is still running": "该设备还有另一个操作在进行中"
+    },
+    "Auto-mount on plug": {
+        "Auto-mount on plug": "插入时自动挂载"
+    },
+    "Bar widget": {
+        "Bar widget": "状态栏组件"
+    },
+    "Command prefix for the open action; arguments are allowed and passed without a shell. Leave empty to use the default file manager, falling back to the default terminal.": {
+        "Command prefix for the open action; arguments are allowed and passed without a shell. Leave empty to use the default file manager, falling back to the default terminal.": "“打开”操作的命令前缀；可以带参数，不经过 shell 直接传递。留空则使用默认文件管理器，没有可用的文件管理器时改用默认终端。"
+    },
+    "Daemon is not running": {
+        "Daemon is not running": "后台服务未运行"
+    },
+    "Detection": {
+        "Detection": "识别"
+    },
+    "Drive count": {
+        "Drive count": "显示设备数量"
+    },
+    "Drive filter": {
+        "Drive filter": "设备筛选"
+    },
+    "Drive not found": {
+        "Drive not found": "未找到该设备"
+    },
+    "Eject already running": {
+        "Eject already running": "弹出已在进行中"
+    },
+    "Eject failed": {
+        "Eject failed": "弹出失败"
+    },
+    "Ejecting": {
+        "Ejecting": "正在弹出"
+    },
+    "Events are posted to the DMS notification center over org.freedesktop.Notifications.": {
+        "Events are posted to the DMS notification center over org.freedesktop.Notifications.": "事件通过 org.freedesktop.Notifications 发送到 DMS 通知中心。"
+    },
+    "File manager": {
+        "File manager": "文件管理器"
+    },
+    "Fixed": {
+        "Fixed": "固定盘"
+    },
+    "Invalid device name": {
+        "Invalid device name": "设备名不合法"
+    },
+    "Mount and unmount": {
+        "Mount and unmount": "挂载与卸载"
+    },
+    "Mount behaviour": {
+        "Mount behaviour": "挂载"
+    },
+    "Mount failed": {
+        "Mount failed": "挂载失败"
+    },
+    "Mount one volume per freshly plugged drive: the largest one with a usable filesystem, which is the data partition on sticks that also carry an EFI or recovery sliver.": {
+        "Mount one volume per freshly plugged drive: the largest one with a usable filesystem, which is the data partition on sticks that also carry an EFI or recovery sliver.": "为新插入的设备挂载一个分区：取其中带可用文件系统的最大分区，即同时带有 EFI 或恢复小分区的 U 盘上的数据分区。"
+    },
+    "Mounted volume badge": {
+        "Mounted volume badge": "已挂载分区角标"
+    },
+    "Mounting": {
+        "Mounting": "正在挂载"
+    },
+    "No USB drives detected": {
+        "No USB drives detected": "未检测到 U 盘"
+    },
+    "No file manager or terminal is available": {
+        "No file manager or terminal is available": "没有可用的文件管理器或终端"
+    },
+    "No supported filesystem": {
+        "No supported filesystem": "无支持的文件系统"
+    },
+    "No usage data": {
+        "No usage data": "无用量数据"
+    },
+    "Not mounted": {
+        "Not mounted": "未挂载"
+    },
+    "Nothing to open": {
+        "Nothing to open": "没有可打开的分区"
+    },
+    "Notifications": {
+        "Notifications": "通知"
+    },
+    "Opening": {
+        "Opening": "正在打开"
+    },
+    "Partition not found": {
+        "Partition not found": "未找到该分区"
+    },
+    "Plug and unplug": {
+        "Plug and unplug": "插入与拔出"
+    },
+    "Plug and unplug detected automatically · last scan %1": {
+        "Plug and unplug detected automatically · last scan %1": "自动识别插入与拔出 · 上次扫描 %1"
+    },
+    "Plug one in and it shows up here automatically.": {
+        "Plug one in and it shows up here automatically.": "插入 U 盘后会自动出现在这里。"
+    },
+    "Removable": {
+        "Removable": "可移除"
+    },
+    "Removable flag only": {
+        "Removable flag only": "仅内核标记可移除"
+    },
+    "Rescanned": {
+        "Rescanned": "已重新扫描"
+    },
+    "Safely remove": {
+        "Safely remove": "安全弹出"
+    },
+    "Scan debounce": {
+        "Scan debounce": "扫描去抖"
+    },
+    "Scanning…": {
+        "Scanning…": "正在扫描…"
+    },
+    "Scriptable: dms ipc call usbDrive list | rescan | eject sdb | unmount sdb1 | open sdb1.": {
+        "Scriptable: dms ipc call usbDrive list | rescan | eject sdb | unmount sdb1 | open sdb1.": "可脚本调用：dms ipc call usbDrive list | rescan | eject sdb | unmount sdb1 | open sdb1。"
+    },
+    "Show how many volumes are mounted on the pill.": {
+        "Show how many volumes are mounted on the pill.": "在状态栏胶囊上显示已挂载分区数。"
+    },
+    "The bar pill counts mounted volumes. Each drive gets a card with a mount switch and a usage bar per volume, plus a safe-remove action that unmounts every volume before cutting power.": {
+        "The bar pill counts mounted volumes. Each drive gets a card with a mount switch and a usage bar per volume, plus a safe-remove action that unmounts every volume before cutting power.": "状态栏胶囊统计已挂载分区数。每个设备一张卡片，包含分区级挂载开关和用量条，以及“安全弹出”：先卸载全部分区再断电。"
+    },
+    "The daemon subscribes to udev block events, so plug and unplug are detected without polling.": {
+        "The daemon subscribes to udev block events, so plug and unplug are detected without polling.": "后台服务订阅 udev 块设备事件，无需轮询即可识别插入与拔出。"
+    },
+    "USB Drive": {
+        "USB Drive": "U 盘"
+    },
+    "USB drive connected": {
+        "USB drive connected": "U 盘已插入"
+    },
+    "USB drive removed": {
+        "USB drive removed": "U 盘已拔出"
+    },
+    "USB or removable": {
+        "USB or removable": "USB 或可移除"
+    },
+    "USB transport only": {
+        "USB transport only": "仅 USB 传输"
+    },
+    "USB transport only, anything the kernel flags removable, or both.": {
+        "USB transport only, anything the kernel flags removable, or both.": "可只认 USB 传输、只认内核可移除标记，或两者都认。"
+    },
+    "Unmount failed": {
+        "Unmount failed": "卸载失败"
+    },
+    "Unmounting": {
+        "Unmounting": "正在卸载"
+    },
+    "Usage": {
+        "Usage": "用法"
+    },
+    "Volume mounted": {
+        "Volume mounted": "分区已挂载"
+    },
+    "Volume unmounted": {
+        "Volume unmounted": "分区已卸载"
+    },
+    "Wait after a plug event before reading lsblk, so partitions settle.": {
+        "Wait after a plug event before reading lsblk, so partitions settle.": "插入事件后等待一段时间再读 lsblk，让分区稳定下来。"
+    },
+    "mounted": {
+        "mounted": "已挂载"
+    },
+    "udev monitor unavailable — use refresh": {
+        "udev monitor unavailable — use refresh": "udev 监听不可用 — 请手动刷新"
+    },
+    "udisksctl reported an error": {
+        "udisksctl reported an error": "udisksctl 返回错误"
+    },
+    "unmounted": {
+        "unmounted": "未挂载"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "$schema": "https://github.com/AvengeMedia/DankMaterialShell/raw/refs/heads/master/PLUGINS/plugin-schema.json",
+    "id": "usbDrive",
+    "name": "USB Drive",
+    "description": "Detects USB drives (plug/unplug, mount/unmount), notifies through the system notification channel and manages them from a DankBar widget",
+    "version": "0.2.0",
+    "author": "Yinx",
+    "icon": "usb",
+    "type": "composite",
+    "capabilities": [
+        "daemon",
+        "dankbar-widget",
+        "monitoring",
+        "notifications",
+        "ipc"
+    ],
+    "components": {
+        "daemon": "./UsbMonitorDaemon.qml",
+        "widget": "./UsbBarWidget.qml"
+    },
+    "settings": "./UsbSettings.qml",
+    "requires_dms": ">=1.6.0",
+    "dependencies": [
+        "lsblk",
+        "udevadm",
+        "udisksctl",
+        "dms"
+    ],
+    "permissions": [
+        "settings_read",
+        "settings_write",
+        "process"
+    ]
+}

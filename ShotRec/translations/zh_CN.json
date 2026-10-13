@@ -1,0 +1,140 @@
+{
+    "Window": {
+        "Window": "窗口截图"
+    },
+    "Enter to capture the focused window": {
+        "Enter to capture the focused window": "Enter 截取当前焦点窗口"
+    },
+    "Enter to capture %1 × %2": {
+        "Enter to capture %1 × %2": "Enter 截取 %1 × %2"
+    },
+    "Stop recording": {
+        "Stop recording": "停止录制"
+    },
+    "Could not capture the screen": {
+        "Could not capture the screen": "无法截取屏幕"
+    },
+    "No frozen frame available": {
+        "No frozen frame available": "没有可用的冻结画面"
+    },
+    "Could not write the screenshot": {
+        "Could not write the screenshot": "截图保存失败"
+    },
+    "Screenshot saved": {
+        "Screenshot saved": "截图已保存"
+    },
+    "Recording saved (%1)": {
+        "Recording saved (%1)": "录制已保存（%1）"
+    },
+    "Recording failed": {
+        "Recording failed": "录制失败"
+    },
+    "Could not move the recording": {
+        "Could not move the recording": "录像文件移动失败"
+    },
+    "Shot & Rec": {
+        "Shot & Rec": "截图 & 录屏"
+    },
+    "Print opens the picker with the frozen screen, always starting on the Screenshot mode. Left/Right or clicking a chip switches mode, drag selects a region, Enter confirms, Esc cancels. Press the same hotkey again to stop a recording.": {
+        "Print opens the picker with the frozen screen, always starting on the Screenshot mode. Left/Right or clicking a chip switches mode, drag selects a region, Enter confirms, Esc cancels. Press the same hotkey again to stop a recording.": "按热键唤起选区，屏幕被冻结为静态画面，默认停在截图模式。左右方向键或点击模式按钮切换，拖拽框选区域，Enter 确认，Esc 取消。录制中再按一次同一热键停止。"
+    },
+    "Screenshot folder": {
+        "Screenshot folder": "截图保存目录"
+    },
+    "Where cropped and full screen shots are written": {
+        "Where cropped and full screen shots are written": "区域截图和全屏截图写入的位置"
+    },
+    "Recording folder": {
+        "Recording folder": "录像保存目录"
+    },
+    "Where recordings are written": {
+        "Where recordings are written": "录像文件写入的位置"
+    },
+    "Copy screenshots to clipboard": {
+        "Copy screenshots to clipboard": "截图同时复制到剪贴板"
+    },
+    "Capture delay": {
+        "Capture delay": "截图延时"
+    },
+    "Video format": {
+        "Video format": "视频格式"
+    },
+    "Resolution": {
+        "Resolution": "分辨率"
+    },
+    "Native": {
+        "Native": "原生"
+    },
+    "Video quality": {
+        "Video quality": "视频质量"
+    },
+    "Framerate": {
+        "Framerate": "帧率"
+    },
+    "Auto": {
+        "Auto": "自动"
+    },
+    "Auto records only when the screen changes": {
+        "Auto records only when the screen changes": "自动模式只在画面变化时录帧"
+    },
+    "Audio source": {
+        "Audio source": "音频源"
+    },
+    "Off": {
+        "Off": "关闭"
+    },
+    "System sound": {
+        "System sound": "系统声音"
+    },
+    "Microphone": {
+        "Microphone": "麦克风"
+    },
+    "System + microphone": {
+        "System + microphone": "系统+麦克风"
+    },
+    "Use HEVC instead of H.264": {
+        "Use HEVC instead of H.264": "使用 HEVC 代替 H.264"
+    },
+    "MP4/MKV only; smaller files, slower software encoding": {
+        "MP4/MKV only; smaller files, slower software encoding": "仅 MP4/MKV 生效；文件更小，软件编码更慢"
+    },
+    "High": {
+        "High": "高"
+    },
+    "Medium": {
+        "Medium": "中"
+    },
+    "Low": {
+        "Low": "低"
+    },
+    "IPC commands": {
+        "IPC commands": "IPC 命令"
+    },
+    "Screenshot": {
+        "Screenshot": "截图"
+    },
+    "Recording": {
+        "Recording": "录屏"
+    },
+    "Record": {
+        "Record": "录制"
+    },
+    "Captures the selection, or the whole screen if none": {
+        "Captures the selection, or the whole screen if none": "有选区截选区，无选区截全屏"
+    },
+    "Records the selection, or the whole screen if none": {
+        "Records the selection, or the whole screen if none": "有选区录选区，无选区录全屏"
+    },
+    "Enter to record %1 × %2": {
+        "Enter to record %1 × %2": "Enter 录制 %1 × %2"
+    },
+    "No focused window — captured full screen": {
+        "No focused window — captured full screen": "当前没有窗口，已截取全屏"
+    },
+    "Quick settings": {
+        "Quick settings": "快捷设置"
+    },
+    "Open recording folder": {
+        "Open recording folder": "打开录像目录"
+    }
+}
