@@ -1,0 +1,37 @@
+---
+name: Bug 报告 / Bug report
+about: 插件行为与文档描述不一致，或崩溃、无响应、结果错误
+title: "[shotrec|usbDrive] "
+labels: bug
+---
+
+## 插件与版本
+
+<!-- plugin.json 的 id 与 version，例如 shotrec 0.3.2 -->
+
+- 插件：
+- 版本：
+- DMS 版本（`dms --version`）：
+- Compositor（niri / hyprland / …）及版本：
+
+## 现象
+
+<!-- 做了什么、期望什么、实际发生了什么。必现还是偶发。 -->
+
+## 复现步骤
+
+1.
+2.
+3.
+
+## 日志
+
+```
+journalctl --user -u dms.service -b | grep -E '\[(shotrec|usbDrive)\]'
+```
+
+## 补充
+
+- 显示器 scale（截图/录屏的坐标换算、选区类问题尤其需要）：
+- 相关外部工具版本（`wf-recorder --version` / `ffmpeg -version` / `lsblk --version` 等）：
+- 其他上下文（多显示器、缩放、正在录制的音频源设置、接入的设备型号等）：

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: DMS 本体问题
+    url: https://github.com/AvengeMedia/DankMaterialShell/issues
+    about: 插件依赖的 DMS / quickshell 层问题（层协议、IPC 框架、PluginSettings 注入机制等）请提到上游仓库。
+  - name: DMS 插件文档
+    url: https://danklinux.com/docs/dankmaterialshell/plugin-development
+    about: 插件清单、组件架构与 PluginService API 的官方参考；本仓库 docs/ 是其 2026-10-13 的离线存档。

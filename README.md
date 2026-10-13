@@ -1,14 +1,15 @@
 # inx-dms-plugins
 
-个人 [DankMaterialShell](https://danklinux.com/dankmaterialshell) 插件合集仓库（monorepo），
-官方插件仓库 `dms-plugins` 同款布局：每个插件一个顶层目录，各带自己的 `plugin.json`。
+个人 [DankMaterialShell](https://danklinux.com/dankmaterialshell) 插件合集（monorepo），
+沿用官方插件仓库 [`dms-plugins`](https://github.com/AvengeMedia/dms-plugins) 的布局：
+每个插件一个顶层目录，各带自己的 `plugin.json`。
 
 ## 插件列表
 
-| 目录 | 插件 id | 说明 |
-| --- | --- | --- |
-| [`ShotRec/`](ShotRec) | `shotrec` | GNOME 风格截图/录屏一体：全屏选区 + 模式选择条 + 顶栏状态图标 + 快捷设置。详见 [ShotRec/README.md](ShotRec/README.md) |
-| [`UsbDrive/`](UsbDrive) | `usbDrive` | USB 磁盘监听（插拔/挂载/卸载），系统通知 + DankBar 管理小部件 |
+| 目录 | 插件 id | 版本 | 说明 |
+| --- | --- | --- | --- |
+| [`ShotRec/`](ShotRec) | `shotrec` | 0.3.2 | GNOME 风格截图/录屏一体：全屏选区 + 模式选择条 + 顶栏状态图标 + 快捷设置。<br>详见 [ShotRec/README.md](ShotRec/README.md) |
+| [`UsbDrive/`](UsbDrive) | `usbDrive` | 0.2.0 | USB 磁盘监听（插拔/挂载/卸载），系统通知 + DankBar 管理小部件。<br>详见 [UsbDrive/README.md](UsbDrive/README.md) |
 
 两个插件均为 `type: "composite"`（daemon + dankbar-widget），要求 DMS ≥ 1.6.0。
 
@@ -18,7 +19,7 @@
 本仓库是 monorepo，推荐用符号链接把插件目录挂进去，`git pull` 即可更新：
 
 ```bash
-git clone https://github.com/<your-name>/inx-dms-plugins ~/repos/inx-dms-plugins
+git clone https://github.com/Yinxe/inx-dms-plugins ~/repos/inx-dms-plugins
 mkdir -p ~/.config/DankMaterialShell/plugins
 
 ln -s ~/repos/inx-dms-plugins/ShotRec ~/.config/DankMaterialShell/plugins/shotrec
@@ -30,6 +31,27 @@ dms restart
 然后在 Settings → Plugins 中 Scan for Plugins 并启用；DankBar 小部件需手动加入栏布局。
 不喜欢符号链接的话，直接 `cp -r` 各插件目录效果相同。
 
+外部依赖（`wf-recorder` / `udisksctl` 等）见各插件 README 的依赖表。
+
+## 仓库结构
+
+```
+.
+├── ShotRec/            # 插件：截图/录屏（含 README、CHANGELOG）
+├── UsbDrive/           # 插件：USB 设备管理（含 README、CHANGELOG）
+└── docs/               # 官方插件文档离线存档（非本项目产出，见下）
+```
+
+每个插件目录自成一体、互不引用：
+
+```
+<Plugin>/
+├── plugin.json                    # 清单（id、type、components、依赖、权限）
+├── *Daemon.qml / *Widget.qml      # composite 各表面的组件
+├── *Settings.qml                  # 设置页
+└── translations/zh_CN.json        # I18n.trFor(<id>, ...) 的中文译文
+```
+
 ## 开发参考
 
 - [`docs/plugins-overview.md`](docs/plugins-overview.md) — 官方插件系统总览
@@ -38,10 +60,9 @@ dms restart
   （plugin.json 清单、组件架构、PluginService API、设置组件、composite/launcher/desktop 插件、翻译），
   来源 <https://danklinux.com/docs/dankmaterialshell/plugin-development>
 
-两份文档抓取于 2026-10-13（对应 DMS 1.6 文档版本），后续开发前先对照最新版官方文档。
+这两份是官方文档的**离线存档**，抓取于 2026-10-13（对应 DMS 1.6 文档版本），版权归 AvengeMedia 上游所有，
+后续开发前请先对照在线最新版。开发流程、代码约定与 PR 要求见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
 
-## 仓库说明
+## 许可
 
-- 由 `dms-shotrec`、`dms-usb-manager` 两个独立仓库整合而来（整合于 2026-10-13）。
-- 各插件目录内保留自己的 `plugin.json`、`translations/`；ShotRec 另有 CHANGELOG。
-- 新增插件：在仓库根新建 `<PluginName>/plugin.json` 目录即可，互不依赖。
+本仓库原创代码以 [MIT](LICENSE) 发布；`docs/` 下的官方文档存档不在此许可范围内（见上节说明）。

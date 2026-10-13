@@ -1962,7 +1962,7 @@ Desktop widgets:
 
 - SystemMonitorWidget - CPU, memory, network, disk, GPU tiles with real-time graphs
 
-Clone them and experiment.[Edit this page](https://github.com/AvengeMedia/DankLinux-Docs/tree/master/versioned_docs/version-1.6/dankmaterialshell/plugin-development.mdx)[PreviousOverview](/docs/dankmaterialshell/plugins-overview)[NextAdvanced Configuration](/docs/dankmaterialshell/advanced-configuration)
+Clone them and experiment.[Edit this page](https://github.com/AvengeMedia/DankLinux-Docs/tree/master/versioned_docs/version-1.6/dankmaterialshell/plugin-development.mdx)[PreviousOverview](https://danklinux.com/docs/dankmaterialshell/plugins-overview)[NextAdvanced Configuration](https://danklinux.com/docs/dankmaterialshell/advanced-configuration)
 
 - Development Environment
 
@@ -2058,8 +2058,8 @@ Clone them and experiment.[Edit this page](https://github.com/AvengeMedia/DankLi
 - Publishing
 - Examples
 
-- [Install](/docs/getting-started)
-- [Docs](/docs/)
-- [Contributing](/docs/contributing)
+- [Install](https://danklinux.com/docs/getting-started)
+- [Docs](https://danklinux.com/docs/)
+- [Contributing](https://danklinux.com/docs/contributing)
 © 2026 Dank Linux • MIT Licensehttps://github.com/AvengeMediahttps://discord.gg/ppWTpKmPgThttps://ko-fi.com/danklinux
 

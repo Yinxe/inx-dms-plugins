@@ -4,6 +4,7 @@ GNOME Shell 风格的截图 / 录屏一体插件，为 DankMaterialShell 而生�
 
 按一次热键：屏幕被冻结成静态画面，进入全屏选区界面，中央给出模式选择条（固定从"截图"开始），
 方向键或鼠标点击切换模式、拖拽框选、`Enter` 确认、`Esc` 取消。录制中再按一次热键停止。
+版本变更见 [CHANGELOG.md](CHANGELOG.md)。
 
 顶栏还有一枚状态图标（composite 插件的 `widget` 组件）：空闲时是 `screenshot_region`，
 点击即触发 `toggle`；录制中变成红色呼吸圆点 + `stop_circle` + 已录时长 mm:ss（水平/垂直栏都显示）。
@@ -32,7 +33,7 @@ GNOME Shell 风格的截图 / 录屏一体插件，为 DankMaterialShell 而生�
 | 录屏 | 音频源 | 关闭 / 系统声音 / 麦克风 / 系统+麦克风（混音用旁路 ffmpeg amix 录 wav，停止时 `-c:v copy` 无损混流） |
 | 录屏 | HEVC | 用 x265 替换 x264（仅 MP4/MKV；WebM 固定 VP9+Opus） |
 
-参考设计稿里的"跟随鼠标 / 隐藏桌面图标 / 缩放"三项 wf-recorder 无对应能力，未实现。
+常见录屏界面里的"跟随鼠标 / 隐藏桌面图标 / 缩放"三项，wf-recorder 没有对应能力，未实现。
 
 ## 快捷键接入
 
@@ -89,7 +90,7 @@ dms ipc call shotrec confirm                          # 等价于按 Enter
   按下到可见约 0.2s。曾用 `grim`，PNG 编码要 1.4s，是延迟主因。
 - **live 阶段的防御**：键盘焦点、拖拽、按键都门控在 `phase === "selecting"`；
   抓帧回调里用 `grabSeq` 序号判断自己是否已过期，过期就删掉落盘文件，防止连按泄漏。
-- **冻结优先**：先落盘再显示遮罩，所以画面里不会出现自己的遮罩；截图直接从冻结帧裁剪，和用户看到的像素完全一致。
+- **冻结优先**：先落盘再显示遮罩，所以画面里不会出现自己的遮罩；截图直接从冻结帧裁剪，与遮罩上呈现的像素完全一致。
 - **选区"挖洞"是真像素**：遮罩下垫一层 `clip` 容器，内嵌一张与全屏同尺寸、按选区反向偏移的冻结帧 `Image`——
   直接对选区矩形拉伸整屏图会得到缩小版画面（曾经的 BUG）。
 - **两套坐标，别搞混**（本机 niri scale 1.25 实测）：
@@ -126,7 +127,7 @@ dms ipc call shotrec confirm                          # 等价于按 Enter
 ## 开发
 
 ```bash
-ln -sfn ~/coding/inx-dms-plugins/ShotRec ~/.config/DankMaterialShell/plugins/shotrec
+ln -sfn "$PWD" ~/.config/DankMaterialShell/plugins/shotrec   # 在本插件目录内执行
 dms ipc call plugins reload shotrec     # 热重载入口；改 manifest 需先 plugin-scan rescan
-qmllint ~/coding/inx-dms-plugins/ShotRec/*.qml      # 语法检查
+qmllint *.qml                           # 语法检查
 ```

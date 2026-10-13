@@ -28,7 +28,7 @@ Plugin registry: [plugins.danklinux.com](https://plugins.danklinux.com)
 Registry source: [github.com/AvengeMedia/dms-plugin-registry](https://github.com/AvengeMedia/dms-plugin-registry)
 Example plugins: [github.com/AvengeMedia/DankMaterialShell/tree/master/quickshell/PLUGINS](https://github.com/AvengeMedia/DankMaterialShell/tree/master/quickshell/PLUGINS)
 
-The [plugin directory](https://danklinux.com/plugins) ranks plugins by community 👍 upvotes. Each plugin has a tracking issue in the registry you can upvote and discuss — see [Contributing to the Registry](/docs/contributing-registry#plugin-feedback--ranking).
+The [plugin directory](https://danklinux.com/plugins) ranks plugins by community 👍 upvotes. Each plugin has a tracking issue in the registry you can upvote and discuss — see [Contributing to the Registry](https://danklinux.com/docs/contributing-registry#plugin-feedback--ranking).
 
 ## Plugin Types
 
@@ -114,7 +114,7 @@ Features:
 
 Example use cases: A monitor daemon that also shows a bar pill and a desktop tile; an integration that exposes both a launcher and a background watcher
 
-Composite plugins require DMS ≥ 1.5.0. See the [development guide](/docs/dankmaterialshell/plugin-development#composite-plugins) for details.
+Composite plugins require DMS ≥ 1.5.0. See the [development guide](https://danklinux.com/docs/dankmaterialshell/plugin-development#composite-plugins) for details.
 
 ## Installation
 
@@ -230,7 +230,7 @@ Always review plugin source code before installation. Plugins run with full desk
 
 ## Development
 
-See [Plugin Development](/docs/dankmaterialshell/plugin-development) for the complete development guide including:
+See [Plugin Development](https://danklinux.com/docs/dankmaterialshell/plugin-development) for the complete development guide including:
 
 - Plugin manifest structure (`plugin.json`)
 
@@ -252,7 +252,7 @@ See [Plugin Development](/docs/dankmaterialshell/plugin-development) for the com
 
 Plugins carry their own translations — a `translations/` directory in the plugin repo with one JSON file per locale. DMS picks the file matching your locale automatically and updates live when you switch languages in Settings → Locale. Nothing to configure as a user; if the plugin ships your language, you get it.
 
-For plugin authors: see [Translations](/docs/dankmaterialshell/plugin-development#translations) in the development guide for the file format and the `I18n.trFor` API. Registry plugins can also [apply for central translation](/docs/contributing-registry#plugin-translations) through the same POEditor project that translates DMS itself.
+For plugin authors: see [Translations](https://danklinux.com/docs/dankmaterialshell/plugin-development#translations) in the development guide for the file format and the `I18n.trFor` API. Registry plugins can also [apply for central translation](https://danklinux.com/docs/contributing-registry#plugin-translations) through the same POEditor project that translates DMS itself.
 
 ## Example Plugins
 
@@ -306,11 +306,11 @@ Settings not working:
 
 - Browse available plugins at [plugins.danklinux.com](https://plugins.danklinux.com)
 
-- Learn plugin development in [Plugin Development](/docs/dankmaterialshell/plugin-development)
+- Learn plugin development in [Plugin Development](https://danklinux.com/docs/dankmaterialshell/plugin-development)
 
 - Review example code in the [PLUGINS directory](https://github.com/AvengeMedia/DankMaterialShell/tree/master/quickshell/PLUGINS)
 
-[Edit this page](https://github.com/AvengeMedia/DankLinux-Docs/tree/master/versioned_docs/version-1.6/dankmaterialshell/plugins-overview.mdx)[PreviousQR Codes](/docs/dankmaterialshell/cli-qr)[NextDevelopment](/docs/dankmaterialshell/plugin-development)
+[Edit this page](https://github.com/AvengeMedia/DankLinux-Docs/tree/master/versioned_docs/version-1.6/dankmaterialshell/plugins-overview.mdx)[PreviousQR Codes](https://danklinux.com/docs/dankmaterialshell/cli-qr)[NextDevelopment](https://danklinux.com/docs/dankmaterialshell/plugin-development)
 
 - Plugin Location
 - Plugin Types
@@ -344,8 +344,8 @@ Settings not working:
 - Troubleshooting
 - Next Steps
 
-- [Install](/docs/getting-started)
-- [Docs](/docs/)
-- [Contributing](/docs/contributing)
+- [Install](https://danklinux.com/docs/getting-started)
+- [Docs](https://danklinux.com/docs/)
+- [Contributing](https://danklinux.com/docs/contributing)
 © 2026 Dank Linux • MIT Licensehttps://github.com/AvengeMediahttps://discord.gg/ppWTpKmPgThttps://ko-fi.com/danklinux
 
