@@ -596,22 +596,22 @@ Auto-injected (don't declare these):
 
 | Property | Type | Description |
 | --- | --- | --- |
-``| pluginService | var | Reference to PluginService for data persistence |
-``| pluginId | string | Your plugin's unique identifier |
-``| widgetWidth | real | Current widget width |
-``| widgetHeight | real | Current widget height |
-``| pluginData | var | Object containing all saved plugin settings |
+| `pluginService` | var | Reference to PluginService for data persistence |
+| `pluginId` | string | Your plugin's unique identifier |
+| `widgetWidth` | real | Current widget width |
+| `widgetHeight` | real | Current widget height |
+| `pluginData` | var | Object containing all saved plugin settings |
 
 Optional (define on your component):
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-``| minWidth | real | 100 | Minimum allowed width |
-``| minHeight | real | 100 | Minimum allowed height |
-``| defaultWidth | real | 200 | Initial width for new widgets |
-``| defaultHeight | real | 200 | Initial height for new widgets |
-``| forceSquare | bool | false | Constrain to square aspect ratio |
-``| acceptsKeyboardFocus | bool | false | Opt in to receive keyboard focus when not interacting (see below) |
+| `minWidth` | real | 100 | Minimum allowed width |
+| `minHeight` | real | 100 | Minimum allowed height |
+| `defaultWidth` | real | 200 | Initial width for new widgets |
+| `defaultHeight` | real | 200 | Initial height for new widgets |
+| `forceSquare` | bool | false | Constrain to square aspect ratio |
+| `acceptsKeyboardFocus` | bool | false | Opt in to receive keyboard focus when not interacting (see below) |
 
 Helper functions:
 
@@ -1038,23 +1038,23 @@ QtObject {
 
 | Field | Description |
 | --- | --- |
-````````| trigger | Prefix that activates the plugin (e.g., gif, :s, !calc) |
-````````| viewMode | Default view: "list", "grid", or "tile" |
-````| viewModeEnforced | If true, user cannot change the view mode |
+| `trigger` | Prefix that activates the plugin (e.g., `gif`, `:s`, `!calc`) |
+| `viewMode` | Default view: `"list"`, `"grid"`, or `"tile"` |
+| `viewModeEnforced` | If `true`, user cannot change the view mode |
 
 ### Item Properties
 
 | Property | Type | Description |
 | --- | --- | --- |
-``| name | string | Display name (required) |
-``````| icon | string | "material:icon_name" or "unicode:🚀" |
-``| comment | string | Secondary text/description |
-``````| action | string | Action identifier (e.g., "copy:text", "custom:data") |
-``| categories | array | Category strings for filtering |
-``| keywords | array | Additional search terms |
-``| imageUrl | string | URL for tile/grid image |
-````| animated | bool | Set true for GIFs to enable animation |
-``| attribution | string | Path to attribution image (e.g., for API branding) |
+| `name` | string | Display name (required) |
+| `icon` | string | `"material:icon_name"` or `"unicode:🚀"` |
+| `comment` | string | Secondary text/description |
+| `action` | string | Action identifier (e.g., `"copy:text"`, `"custom:data"`) |
+| `categories` | array | Category strings for filtering |
+| `keywords` | array | Additional search terms |
+| `imageUrl` | string | URL for tile/grid image |
+| `animated` | bool | Set `true` for GIFs to enable animation |
+| `attribution` | string | Path to attribution image (e.g., for API branding) |
 
 ### Context Menus
 
@@ -1086,10 +1086,10 @@ Each action object:
 
 | Field | Type | Description |
 | --- | --- | --- |
-``| icon | string | Material icon name |
-``| text | string | Display label |
-``| action | function | Callback executed when selected |
-``````| closeLauncher | bool | If true, closes the launcher after action executes (default: false) |
+| `icon` | string | Material icon name |
+| `text` | string | Display label |
+| `action` | function | Callback executed when selected |
+| `closeLauncher` | bool | If `true`, closes the launcher after action executes (default: `false`) |
 
 Use `closeLauncher: true` for actions that need focus to return to the previous application, such as paste operations:
 
@@ -1128,9 +1128,9 @@ function setCategory(categoryId) {
 
 | Field | Type | Description |
 | --- | --- | --- |
-``| id | string | Unique identifier (empty string for "All") |
-``| name | string | Display name in dropdown |
-``| searchTerm | string | Optional: search term to use for this category |
+| `id` | string | Unique identifier (empty string for "All") |
+| `name` | string | Display name in dropdown |
+| `searchTerm` | string | Optional: search term to use for this category |
 
 For dynamic categories fetched from an API, emit `itemsChanged` or call `pluginService.requestLauncherUpdate(pluginId)` when categories are ready.
 
@@ -1353,10 +1353,10 @@ Provide any subset of the four surface keys — you don't need all of them. A da
 
 | Key | Root component | Lifecycle |
 | --- | --- | --- |
-````| widget | PluginComponent (bar pills + optional Control Center widget) | per bar, per screen |
-````| desktop | DesktopPluginComponent | per placement, per screen |
-``````````| daemon | PluginComponent (or any Item exposing pluginService / pluginId) | one persistent instance |
-``````````| launcher | QtObject with getItems / executeItem (requires trigger) | one instance |
+| `widget` | `PluginComponent` (bar pills + optional Control Center widget) | per bar, per screen |
+| `desktop` | `DesktopPluginComponent` | per placement, per screen |
+| `daemon` | `PluginComponent` (or any `Item` exposing `pluginService` / `pluginId`) | one persistent instance |
+| `launcher` | `QtObject` with `getItems` / `executeItem` (requires `trigger`) | one instance |
 
 Each surface is written exactly as it would be for a standalone plugin of that type — see the Widget, Daemon, Desktop, and Launcher sections above. They're simply bundled into one plugin directory and listed under `components`.
 
@@ -1545,13 +1545,12 @@ State is stored per-plugin at `~/.local/state/DankMaterialShell/plugins/{pluginI
 
 ### State vs Settings
 
-````| Use Settings (savePluginData) | Use State (savePluginState) |
+| Use Settings (`savePluginData`) | Use State (`savePluginState`) |
+| --- | --- |
 | User-configured preferences | Runtime/transient data |
-| --- | --- |
 | Trigger character, themes, toggles | Command history, recent items |
-````| Stored in shared plugin_settings.json | Stored in {pluginId}_state.json |
+| Stored in shared `plugin_settings.json` | Stored in `{pluginId}_state.json` |
 | Shown/edited in settings UI | Accumulated during usage |
-| --- | --- |
 
 ### API
 
