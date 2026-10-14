@@ -1,0 +1,43 @@
+{
+    "$schema": "https://github.com/AvengeMedia/DankMaterialShell/raw/refs/heads/master/PLUGINS/plugin-schema.json",
+    "id": "sshMan",
+    "name": "SSH Manager",
+    "description": "SSH connection manager: parses ~/.ssh/config (with Includes), manages a hosted block of extra hosts, connects through the default terminal, tracks live ssh sessions, dual-pane file transfers over ssh and integrates with DankLauncher",
+    "version": "0.2.0",
+    "author": "Yinx",
+    "icon": "terminal",
+    "type": "composite",
+    "capabilities": [
+        "daemon",
+        "dankbar-widget",
+        "launcher",
+        "monitoring",
+        "notifications",
+        "ipc"
+    ],
+    "components": {
+        "daemon": "./SshDaemon.qml",
+        "widget": "./SshBarWidget.qml",
+        "launcher": "./SshLauncher.qml"
+    },
+    "trigger": "!ssh",
+    "settings": "./SshSettings.qml",
+    "requires_dms": ">=1.6.0",
+    "dependencies": [
+        "ssh",
+        "ps",
+        "ls",
+        "cp",
+        "mkdir",
+        "realpath",
+        "chmod",
+        "rsync",
+        "scp",
+        "find"
+    ],
+    "permissions": [
+        "settings_read",
+        "settings_write",
+        "process"
+    ]
+}

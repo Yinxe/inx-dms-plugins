@@ -14,9 +14,10 @@
 mkdir -p ~/.config/DankMaterialShell/plugins
 ln -sfn "$PWD/ShotRec"   ~/.config/DankMaterialShell/plugins/shotrec
 ln -sfn "$PWD/UsbDrive"  ~/.config/DankMaterialShell/plugins/usbDrive
+ln -sfn "$PWD/SshMan"    ~/.config/DankMaterialShell/plugins/sshMan
 
-dms ipc call plugins reload shotrec    # 或 usbDrive
-qmllint ShotRec/*.qml UsbDrive/*.qml
+dms ipc call plugins reload shotrec    # 或 usbDrive / sshMan
+qmllint ShotRec/*.qml UsbDrive/*.qml SshMan/*.qml
 ```
 
 两个已知的重载陷阱（详见 [`ShotRec/README.md`](ShotRec/README.md) 的「踩过的坑」）：

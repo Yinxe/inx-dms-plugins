@@ -7,6 +7,11 @@
 
 ## 2026-10-14
 
+- **新增第三个插件 `SshMan/`（id `sshMan`，0.2.0）**：SSH 连接管理，composite 形态
+  daemon + dankbar-widget + launcher。解析并托管 `~/.ssh/config`（Include 展开、first-wins
+  语义、末尾托管区块），默认终端连接、BatchMode 探活、`ps` 轮询活跃会话、
+  双栏文件管理器（本地↔远端 rsync/scp 互传带进度），
+  详见 [`SshMan/README.md`](SshMan/README.md)。
 - 补上本文件：整合成 monorepo 后只有插件各自的 CHANGELOG，仓库层无台账。
 
 ## 2026-10-13

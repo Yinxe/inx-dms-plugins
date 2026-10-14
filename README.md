@@ -10,8 +10,9 @@
 | --- | --- | --- | --- |
 | [`ShotRec/`](ShotRec) | `shotrec` | 0.3.2 | GNOME 风格截图/录屏一体：全屏选区 + 模式选择条 + 顶栏状态图标 + 快捷设置。<br>详见 [ShotRec/README.md](ShotRec/README.md) |
 | [`UsbDrive/`](UsbDrive) | `usbDrive` | 0.2.0 | USB 磁盘监听（插拔/挂载/卸载），系统通知 + DankBar 管理小部件。<br>详见 [UsbDrive/README.md](UsbDrive/README.md) |
+| [`SshMan/`](SshMan) | `sshMan` | 0.2.0 | SSH 连接管理：解析/托管 `~/.ssh/config`，终端连接 + BatchMode 探活 + 活跃会话 + 双栏文件互传，DankBar 小部件 + DankLauncher。<br>详见 [SshMan/README.md](SshMan/README.md) |
 
-两个插件均为 `type: "composite"`（daemon + dankbar-widget），要求 DMS ≥ 1.6.0。
+三个插件均为 `type: "composite"`（daemon + dankbar-widget，SshMan 另含 launcher），要求 DMS ≥ 1.6.0。
 
 ## 安装
 
@@ -24,6 +25,7 @@ mkdir -p ~/.config/DankMaterialShell/plugins
 
 ln -s ~/repos/inx-dms-plugins/ShotRec ~/.config/DankMaterialShell/plugins/shotrec
 ln -s ~/repos/inx-dms-plugins/UsbDrive ~/.config/DankMaterialShell/plugins/usbDrive
+ln -s ~/repos/inx-dms-plugins/SshMan ~/.config/DankMaterialShell/plugins/sshMan
 
 dms restart
 ```
@@ -39,6 +41,7 @@ dms restart
 .
 ├── ShotRec/            # 插件：截图/录屏（含 README、CHANGELOG）
 ├── UsbDrive/           # 插件：USB 设备管理（含 README、CHANGELOG）
+├── SshMan/             # 插件：SSH 连接管理（含 README、CHANGELOG）
 └── docs/               # 官方插件文档离线存档（非本项目产出，见下）
 ```
 

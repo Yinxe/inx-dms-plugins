@@ -1,0 +1,332 @@
+{
+    "A host with this name already exists": {
+        "A host with this name already exists": "已存在同名主机"
+    },
+    "Add host": {
+        "Add host": "添加主机"
+    },
+    "Add managed host": {
+        "Add managed host": "添加托管主机"
+    },
+    "Add one below, or edit ~/.ssh/config and press refresh.": {
+        "Add one below, or edit ~/.ssh/config and press refresh.": "可在下方添加，或编辑 ~/.ssh/config 后点击刷新。"
+    },
+    "Alias": {
+        "Alias": "别名"
+    },
+    "Alias may use letters, digits, dot, dash and underscore (max 64)": {
+        "Alias may use letters, digits, dot, dash and underscore (max 64)": "别名只能使用字母、数字、点、横线、下划线（最长 64）"
+    },
+    "Also list ssh processes that match no known host, so stray sessions are still visible.": {
+        "Also list ssh processes that match no known host, so stray sessions are still visible.": "同时列出无法对应到已知主机的 ssh 进程，避免漏掉其它来源的会话。"
+    },
+    "Announce when a new ssh session is detected.": {
+        "Announce when a new ssh session is detected.": "检测到新的 ssh 会话时提示。"
+    },
+    "Announce when a session disappears. Off by default: the popout already shows the live list.": {
+        "Announce when a session disappears. Off by default: the popout already shows the live list.": "会话消失时提示。默认关闭：弹层已直接显示活动会话列表。"
+    },
+    "Backup failed": {
+        "Backup failed": "备份失败"
+    },
+    "Cannot create": {
+        "Cannot create": "无法创建"
+    },
+    "Config is reloading, try again": {
+        "Config is reloading, try again": "配置正在重新加载，请稍后再试"
+    },
+    "Config update failed": {
+        "Config update failed": "配置更新失败"
+    },
+    "Config write failed": {
+        "Config write failed": "配置写入失败"
+    },
+    "ConnectTimeout for the BatchMode probe. Key-based auth only: a password prompt cannot be answered in the background.": {
+        "ConnectTimeout for the BatchMode probe. Key-based auth only: a password prompt cannot be answered in the background.": "BatchMode 探活的 ConnectTimeout。仅支持密钥认证：后台无法回应密码输入提示。"
+    },
+    "Connection": {
+        "Connection": "连接"
+    },
+    "Copied ssh command for": {
+        "Copied ssh command for": "已复制该主机的 ssh 命令："
+    },
+    "Copy ssh command": {
+        "Copy ssh command": "复制 ssh 命令"
+    },
+    "Daemon is not running": {
+        "Daemon is not running": "守护组件未运行"
+    },
+    "Edit managed host": {
+        "Edit managed host": "编辑托管主机"
+    },
+    "Host added": {
+        "Host added": "已添加主机"
+    },
+    "Host name": {
+        "Host name": "主机地址"
+    },
+    "Host not found": {
+        "Host not found": "未找到该主机"
+    },
+    "Host not found in the managed block": {
+        "Host not found in the managed block": "托管区块中没有该主机"
+    },
+    "Host reachable": {
+        "Host reachable": "主机可达"
+    },
+    "Host removed": {
+        "Host removed": "已删除主机"
+    },
+    "Host updated": {
+        "Host updated": "已更新主机"
+    },
+    "Hosts added from the popout go into a managed block at the end of ~/.ssh/config, between marker comments. Everything outside that block is never touched, and a copy is kept at config.sshman.bak before each write.": {
+        "Hosts added from the popout go into a managed block at the end of ~/.ssh/config, between marker comments. Everything outside that block is never touched, and a copy is kept at config.sshman.bak before each write.": "在弹层中添加的主机会写入 ~/.ssh/config 末尾的托管区块（带标记注释）。区块之外的内容绝不改动，每次写入前都会在 config.sshman.bak 保留一份备份。"
+    },
+    "Hosts are parsed from ~/.ssh/config, Includes included; connect, test and copy act on the parsed list.": {
+        "Hosts are parsed from ~/.ssh/config, Includes included; connect, test and copy act on the parsed list.": "主机列表解析自 ~/.ssh/config（含 Include），连接、测试与复制都作用于解析结果。"
+    },
+    "How often the process table is read for live ssh sessions.": {
+        "How often the process table is read for live ssh sessions.": "轮询进程表以检测活动 ssh 会话的间隔。"
+    },
+    "Invalid host alias": {
+        "Invalid host alias": "主机别名不合法"
+    },
+    "Invalid host name": {
+        "Invalid host name": "主机地址不合法"
+    },
+    "Invalid pid": {
+        "Invalid pid": "pid 不合法"
+    },
+    "Invalid user name": {
+        "Invalid user name": "用户名不合法"
+    },
+    "Kill failed": {
+        "Kill failed": "终止失败"
+    },
+    "Launcher": {
+        "Launcher": "启动器"
+    },
+    "Live sessions": {
+        "Live sessions": "活动会话"
+    },
+    "Live sessions are detected by polling the process table; sessions started in your own terminal show up there too.": {
+        "Live sessions are detected by polling the process table; sessions started in your own terminal show up there too.": "活动会话通过轮询进程表检测；在你自己的终端里发起的 ssh 会话同样会出现在列表中。"
+    },
+    "No SSH hosts configured": {
+        "No SSH hosts configured": "未配置任何 SSH 主机"
+    },
+    "No active SSH sessions": {
+        "No active SSH sessions": "没有活动的 SSH 会话"
+    },
+    "No ssh_config yet — add a host below": {
+        "No ssh_config yet — add a host below": "还没有 ssh_config —— 可在下方添加主机"
+    },
+    "Only managed-block hosts can be removed here; edit your ssh_config for this one": {
+        "Only managed-block hosts can be removed here; edit your ssh_config for this one": "这里只能删除托管区块中的主机；该主机请自行编辑 ssh_config"
+    },
+    "Opening": {
+        "Opening": "正在打开"
+    },
+    "Operation already running for this host": {
+        "Operation already running for this host": "该主机已有操作在进行"
+    },
+    "Override for the connect action; arguments are allowed and passed as argv. Leave empty to use the DMS default terminal, then $TERMINAL, then an installed terminal.": {
+        "Override for the connect action; arguments are allowed and passed as argv. Leave empty to use the DMS default terminal, then $TERMINAL, then an installed terminal.": "覆盖“连接”操作使用的终端；可以带参数，按 argv 直接传递。留空则依次使用 DMS 默认终端、$TERMINAL 与已安装的终端。"
+    },
+    "Pattern template": {
+        "Pattern template": "模式模板"
+    },
+    "Port (optional)": {
+        "Port (optional)": "端口（可选）"
+    },
+    "Port must be between 1 and 65535": {
+        "Port must be between 1 and 65535": "端口必须在 1 到 65535 之间"
+    },
+    "Prefix that activates the plugin in DankLauncher (e.g. !ssh).": {
+        "Prefix that activates the plugin in DankLauncher (e.g. !ssh).": "在 DankLauncher 中激活本插件的前缀（例如 !ssh）。"
+    },
+    "Reachable": {
+        "Reachable": "可达"
+    },
+    "Refreshed": {
+        "Refreshed": "已刷新"
+    },
+    "Remove host": {
+        "Remove host": "删除主机"
+    },
+    "SSH Manager": {
+        "SSH Manager": "SSH 管理"
+    },
+    "SSH session ended": {
+        "SSH session ended": "SSH 会话已结束"
+    },
+    "SSH session started": {
+        "SSH session started": "SSH 会话已建立"
+    },
+    "Save changes": {
+        "Save changes": "保存修改"
+    },
+    "Sessions": {
+        "Sessions": "会话"
+    },
+    "Terminal command": {
+        "Terminal command": "终端命令"
+    },
+    "Terminating session": {
+        "Terminating session": "正在终止会话"
+    },
+    "Test connection": {
+        "Test connection": "测试连接"
+    },
+    "Test timeout": {
+        "Test timeout": "测试超时"
+    },
+    "Testing": {
+        "Testing": "正在测试"
+    },
+    "Timed out": {
+        "Timed out": "已超时"
+    },
+    "Trigger": {
+        "Trigger": "触发词"
+    },
+    "Unmatched sessions": {
+        "Unmatched sessions": "显示未匹配会话"
+    },
+    "Unreachable": {
+        "Unreachable": "不可达"
+    },
+    "Usage": {
+        "Usage": "用法"
+    },
+    "User (optional)": {
+        "User (optional)": "用户（可选）"
+    },
+    "Writing %1 was refused": {
+        "Writing %1 was refused": "写入 %1 被拒绝"
+    },
+    "Match block not evaluated statically: %1": {
+        "Match block not evaluated statically: %1": "Match 区块无法静态求值，已跳过：%1"
+    },
+    "Scriptable: dms ipc call sshMan list | live | refresh | connect <alias> | files <alias> | test <alias> | add <alias> <host> [user] [port] | update <old> <new> <host> [user] [port] | remove <alias> | kill <pid>.": {
+        "Scriptable: dms ipc call sshMan list | live | refresh | connect <alias> | files <alias> | test <alias> | add <alias> <host> [user] [port] | update <old> <new> <host> [user] [port] | remove <alias> | kill <pid>.": "可脚本化：dms ipc call sshMan list | live | refresh | connect <别名> | files <别名> | test <别名> | add <别名> <主机> [用户] [端口] | update <旧名> <新名> <主机> [用户] [端口] | remove <别名> | kill <pid>。"
+    },
+    "Poll interval": {
+        "Poll interval": "轮询间隔"
+    },
+    "New session notification": {
+        "New session notification": "新会话通知"
+    },
+    "Session end notification": {
+        "Session end notification": "会话结束通知"
+    },
+    "Announce when a batch of file transfers finishes. Browsing and transferring need key authentication (BatchMode); password hosts can still be used via the connect action.": {
+        "Announce when a batch of file transfers finishes. Browsing and transferring need key authentication (BatchMode); password hosts can still be used via the connect action.": "一批文件传输结束时提示。浏览与传输需要密钥认证（BatchMode）；密码认证主机仍可通过连接动作在终端里使用。"
+    },
+    "Cannot browse a pattern template host": {
+        "Cannot browse a pattern template host": "通配模板主机无法浏览文件"
+    },
+    "Clear finished": {
+        "Clear finished": "清除已完成"
+    },
+    "Download": {
+        "Download": "下载"
+    },
+    "Empty folder": {
+        "Empty folder": "空目录"
+    },
+    "File browsing needs key authentication; terminal connections still work with passwords.": {
+        "File browsing needs key authentication; terminal connections still work with passwords.": "文件浏览需要密钥认证；终端连接仍可使用密码登录。"
+    },
+    "File manager": {
+        "File manager": "文件管理器"
+    },
+    "Hidden entries with unsupported names: %1": {
+        "Hidden entries with unsupported names: %1": "%1 个名称不支持的条目已隐藏"
+    },
+    "Host key not trusted yet — connect once with the link button first": {
+        "Host key not trusted yet — connect once with the link button first": "主机密钥尚未信任——请先用连接按钮登录一次"
+    },
+    "Host unreachable": {
+        "Host unreachable": "主机不可达"
+    },
+    "Key authentication required — run ssh-copy-id %1 in a terminal first": {
+        "Key authentication required — run ssh-copy-id %1 in a terminal first": "需要密钥认证——请先在终端执行 ssh-copy-id %1"
+    },
+    "Loading…": {
+        "Loading…": "加载中…"
+    },
+    "Local": {
+        "Local": "本地"
+    },
+    "Local path": {
+        "Local path": "本地路径"
+    },
+    "Opening files for": {
+        "Opening files for": "已打开文件管理："
+    },
+    "Remote": {
+        "Remote": "远端"
+    },
+    "Remote GNU find is required for browsing": {
+        "Remote GNU find is required for browsing": "浏览远端目录需要远端安装 GNU find"
+    },
+    "Remote listing failed": {
+        "Remote listing failed": "远端目录读取失败"
+    },
+    "Remote path": {
+        "Remote path": "远端路径"
+    },
+    "SSH Files": {
+        "SSH Files": "SSH 文件"
+    },
+    "Transfer cancelled": {
+        "Transfer cancelled": "传输已取消"
+    },
+    "Transfer failed": {
+        "Transfer failed": "传输失败"
+    },
+    "Transfer notification": {
+        "Transfer notification": "传输完成通知"
+    },
+    "Transfers": {
+        "Transfers": "传输"
+    },
+    "Transfers complete": {
+        "Transfers complete": "传输完成"
+    },
+    "Transfers finished": {
+        "Transfers finished": "传输已结束"
+    },
+    "Upload": {
+        "Upload": "上传"
+    },
+    "Done": {
+        "Done": "已完成"
+    },
+    "Cancelled": {
+        "Cancelled": "已取消"
+    },
+    "Queued": {
+        "Queued": "排队中"
+    },
+    "managed": {
+        "managed": "托管"
+    },
+    "template": {
+        "template": "模板"
+    },
+    "unknown target": {
+        "unknown target": "未知目标"
+    },
+    "%1 hosts · %2 config warnings": {
+        "%1 hosts · %2 config warnings": "%1 台主机 · %2 条配置警告"
+    },
+    "%1 hosts · last parsed %2": {
+        "%1 hosts · last parsed %2": "%1 台主机 · 上次解析 %2"
+    },
+    "%1 done · %2 failed · %3 cancelled": {
+        "%1 done · %2 failed · %3 cancelled": "%1 项完成 · %2 项失败 · %3 项取消"
+    }
+}
