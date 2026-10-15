@@ -8,7 +8,7 @@
 
 | 目录 | 插件 id | 版本 | 说明 |
 | --- | --- | --- | --- |
-| [`ShotRec/`](ShotRec) | `shotrec` | 0.3.2 | GNOME 风格截图/录屏一体：全屏选区 + 模式选择条 + 顶栏状态图标 + 快捷设置。<br>详见 [ShotRec/README.md](ShotRec/README.md) |
+| [`ShotRec/`](ShotRec) | `shotrec` | 0.4.2 | GNOME 风格截图/录屏一体：全屏选区 + 模式选择条 + 截图标注编辑窗口 + 顶栏状态图标 + 快捷设置。<br>详见 [ShotRec/README.md](ShotRec/README.md) |
 | [`UsbDrive/`](UsbDrive) | `usbDrive` | 0.2.0 | USB 磁盘监听（插拔/挂载/卸载），系统通知 + DankBar 管理小部件。<br>详见 [UsbDrive/README.md](UsbDrive/README.md) |
 | [`SshMan/`](SshMan) | `sshMan` | 0.2.0 | SSH 连接管理：解析/托管 `~/.ssh/config`，终端连接 + BatchMode 探活 + 活跃会话 + 双栏文件互传，DankBar 小部件 + DankLauncher。<br>详见 [SshMan/README.md](SshMan/README.md) |
 

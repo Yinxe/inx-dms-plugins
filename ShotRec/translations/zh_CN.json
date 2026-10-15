@@ -136,5 +136,41 @@
     },
     "Open recording folder": {
         "Open recording folder": "打开录像目录"
+    },
+    "Edit after capture": {
+        "Edit after capture": "截图后打开编辑器"
+    },
+    "Edit screenshot": {
+        "Edit screenshot": "截图编辑"
+    },
+    "Pen": {
+        "Pen": "画笔"
+    },
+    "Rectangle": {
+        "Rectangle": "矩形"
+    },
+    "Arrow": {
+        "Arrow": "箭头"
+    },
+    "Text": {
+        "Text": "文字"
+    },
+    "Crop": {
+        "Crop": "裁剪"
+    },
+    "Undo": {
+        "Undo": "撤销"
+    },
+    "Clear": {
+        "Clear": "清空"
+    },
+    "Save": {
+        "Save": "保存"
+    },
+    "Cancel": {
+        "Cancel": "取消"
+    },
+    "Mosaic": {
+        "Mosaic": "马赛克"
     }
 }

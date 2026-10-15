@@ -4,6 +4,38 @@
 版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 条目保留了开发时的实测数据（耗时、体积、电平），以便后续回归对比。
 
+## [0.4.2] — 2026-10-15
+
+**编辑窗口第二轮迭代：选区底子、矩形马赛克、工具栏融合、撤销修复**。
+
+- **选区底子**：区域截图进编辑器时，daemon 先用一条 `ffmpeg crop` 把冻结帧裁成选区图（`edit-base-*.png`）再打开——编辑框底子是**选区本身**而非全屏原图。重新裁剪改为「视图」模型：`crop` 为全图归一化的视口矩形，`shot` 图永不自身裁剪（马赛克 `drawImage` 仍采全图真实像素），外层裁剪容器只显示视口，因此**重新裁剪后底子图即时变化**，且已有标注按视口重映射（`applyCrop`）不位移。
+- **矩形马赛克**：由画笔式涂抹改为**拖拽矩形区域**，逐格采一个全图像素邻近放大铺满→真马赛克；区域带白色描边；强度加大（块尺寸 0.03/0.05/0.08 图宽）。裁剪工具拖拽时视口内显示虚线选择框。
+- **工具栏融合**：第二行去掉重复的居中快捷键提示，把 `Ctrl+Z / Esc / Enter` 直接并入「撤销/清空/取消/保存」按钮文字，不再重复出现。
+- **撤销修复**：`onVisibleChanged` 用 `Qt.callLater` 抢焦点（`DankFloatingWindow` 无 `active` 属性，误用 `onActiveChanged` 会导致整个插件加载失败）；`Ctrl/Cmd+Z` 判定放宽。
+- 验证：区域 200,200 500x300（scale 1.25）→ 编辑器底子为 625x375 选区图；矩形马赛克 + 保存 → 产物 625x375、左上马赛克区块与白框对齐；双行工具栏第二行按钮含内联快捷键、无重叠。
+
+## [0.4.1] — 2026-10-15
+
+**编辑窗口迭代：双行工具栏、马赛克涂抹、文字输入修复、粗细选择器重做**。
+
+- **工具栏双行**：第一行=工具组（画笔/矩形/箭头/文字/马赛克/裁剪，图标+文字胶囊）| 颜色 7 颗（选中内点+描边）| 粗细 3 档；第二行=撤销/清空（左）、快捷键提示（中）、取消/保存（右）。窗口宽度取「图片/两行工具栏」最大值，提示不再被裁。
+- **马赛克**：画笔式涂抹，`drawImage(shot, …)` 邻近缩放把原图像素按方块贴回标注层——预览即成品，保存链路零新增处理；粒度跟随粗细档位（0.02/0.03/0.045 图宽）。工具键扩到 `1`–`6`。
+- **文字输入修复**：旧实现点击后 `forceActiveFocus()` 与 `visible=true` 同帧执行拿不到焦点。改为 `textEditing` 状态 + 输入卡片（深色描边气泡），`Qt.callLater` 拿焦点，`Enter`/失焦提交、`Esc` 只收卡片；`saveEdit` 前先提交未落定的文字。
+- **粗细选择器**：由圆点改为按真实线宽绘制的横线按钮（选中主色+底色胶囊），语义一目了然。
+- IPC 新增 `editorTestMosaic` 钩子（与 `editorTestArrow` 同用途）。
+- 验证：（待补实测数据）
+
+## [0.4.0] — 2026-10-15
+
+**截图后编辑**（截图确认不再直接落盘，先弹独立编辑窗口；同时全插件去 ImageMagick，图像管线统一为 ffmpeg）。
+
+- **新增 `ShotRecEditor.qml`**：DankFloatingWindow 独立窗口（SshMan 同款先例），画笔/矩形/箭头/文字标注 + 二次裁剪（初始裁剪=选区），7 色 3 档粗细，撤销/清空。`Enter` 保存、`Esc` 放弃（不落盘）、`1`–`5` 切工具、`Ctrl+Z` 撤销。标注坐标按图片归一化存 `Canvas`，抗窗口缩放。
+- **保存链路**：无标注且未改裁剪 → 原 mv/单条 crop 路径，零合成；有标注 → 只 grab 透明标注层（`grabToImage`），一条 ffmpeg `crop+scale+overlay` 合成出**物理像素** PNG。尺寸读 `Image.sourceSize`，不靠外部 identify。编辑过程本身零外部进程。
+- **去 magick**：`saveImageFrom` 区域裁剪改 `ffmpeg -vf crop`；`plugin.json` 依赖移除 `magick`（wf-recorder/ffmpeg/wl-copy 保留）。
+- 设置页/快捷面板新增「截图后打开编辑器」开关（默认开，关=恢复 0.3.x 直接保存行为）；`shotNow`/`recordNow` 脚本路径不经编辑器，行为不变。
+- IPC：`status` 编辑器打开时返回 `editing`；新增测试钩子 `editorConfirm` / `editorCancel`；缓存清扫补 `edit-*.png`；编辑器打开时 `toggle` 不重开选区。
+- 验证：全屏未改动 → 编辑器 Enter 直存 1920x1080（纯 mv 零 ffmpeg）；区域 400x300（scale 1.25）→ 存 500x375（单条 ffmpeg crop）；区域+测试箭头 → 500x375 且产物含 798 个红像素（crop+scale+overlay 一条命令合成）；`editorCancel` 不落盘、缓存无残留；关「截图后打开编辑器」→ 恢复直接保存（300x200 → 375x250）。踩坑：多输入合成的 PNG 输出必须 `-frames:v 1 -update 1`（否则 image2 muxer 报 "Cannot write more than one file"）；`plugins reload` 不刷新被引用的子组件（改 `ShotRecEditor.qml` 后需 `systemctl --user restart dms.service`，README 早有记载）。
+
 ## [0.3.2] — 2026-10-13
 
 **取消 GIF 录制、截图固定 PNG**（GIF 事后转码不值得保留；截图格式里只有全屏 PNG 免转码，JPG/WebP 必然要 magick 解码+重编码，索性 PNG 够用）。

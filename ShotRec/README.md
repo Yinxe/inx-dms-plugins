@@ -15,15 +15,33 @@ GNOME Shell 风格的截图 / 录屏一体插件，为 DankMaterialShell 而生�
 
 | 模式 | 有选区时 | 无选区时 |
 | --- | --- | --- |
-| 截图 | 截取选区 | 截取全屏 |
-| 窗口截图 | 截取焦点窗口（走 `dms screenshot window`）；**无窗口时自动退化为全屏截图**，通知会注明"当前没有窗口，已截取全屏" | 同左 |
+| 截图 | 弹出编辑窗口（底子=选区图），Enter 保存 | 弹出编辑窗口（底子=整屏），Enter 保存 |
+| 窗口截图 | 截取焦点窗口（走 `dms screenshot window`）后弹出编辑窗口；**无窗口时自动退化为全屏截图**，通知会注明"当前没有窗口，已截取全屏" | 同左 |
 | 录制 | 录制选区 | 录制全屏 |
+
+## 截图编辑
+
+截图模式确认后弹出独立编辑窗口（设置页「截图后打开编辑器」可关，关掉即恢复旧的直接保存）。**区域截图时编辑底子是选区本身**（daemon 先裁好再打开），不是全屏原图：
+
+| 键 | 作用 |
+| --- | --- |
+| `Enter` | 完成编辑并保存（未做任何标注/改裁剪时等价于旧链路：直接 mv 或单条裁剪，零合成开销） |
+| `Esc` | 放弃本次截图，不落盘（正在拖框裁剪时先取消裁剪） |
+| `1`–`6` | 切换工具：画笔 / 矩形 / 箭头 / 文字 / 马赛克 / 裁剪 |
+| `Ctrl+Z` | 撤销上一条标注 |
+
+工具栏双行布局：第一行是工具组、颜色（7 色）、粗细（3 档，按真实线宽预览，马赛克块尺寸同档）；
+第二行把 `Ctrl+Z / Esc / Enter` 直接并入「撤销 / 清空 / 取消 / 保存」按钮，不再单列重复的快捷键提示。
+文字标注点一下输入、`Enter` 提交、失焦自动提交。
+马赛克是**拖拽矩形区域**：区域内逐格采一个原图像素邻近放大铺满（预览即成品，无外部滤镜），带白色描边标出覆盖范围。
+裁剪模式拖框即时改变底子（视口模型，已有标注按新视口重映射不位移）；保存输出始终是**物理像素**尺寸。
 
 ## 设置（截图 | 录屏 两个 tab）
 
 | tab | 项 | 说明 |
 | --- | --- | --- |
-| 截图 | 保存目录 | 默认 `~/Pictures/Screenshots`；**格式固定 PNG**（screencopy 采集即无损 PNG，全屏/窗口截图直接 mv 零转码，只有区域裁剪走一次 magick） |
+| 截图 | 保存目录 | 默认 `~/Pictures/Screenshots`；**格式固定 PNG**（screencopy 采集即无损 PNG，全屏/窗口截图直接 mv 零转码，只有区域裁剪走一次 ffmpeg） |
+| 截图 | 截图后打开编辑器 | 默认开：截图确认后先弹编辑窗口，再 Enter 保存 |
 | 截图 | 截图延时 / 复制到剪贴板 | 延时给"挪开遮挡物"用；剪贴板走 `wl-copy` |
 | 录屏 | 保存目录 | 默认 `~/Videos` |
 | 录屏 | 视频格式 | MP4 / WebM / MKV |
@@ -78,8 +96,7 @@ dms ipc call shotrec confirm                          # 等价于按 Enter
 | --- | --- |
 | `dms screenshot` | 冻结画面 / 抓帧 / 窗口截图（niri 原生 screencopy，~0.08s） |
 | `wf-recorder` | 录屏 |
-| `ffmpeg` | 系统+麦克风混音（amix）与混流（mux） |
-| `magick` | 从冻结帧裁剪截图（所见即所得） |
+| `ffmpeg` | 截图裁剪与标注合成、系统+麦克风混音（amix）与混流（mux） |
 | `wl-copy` | 截图写入剪贴板 |
 | `busctl` | 发送 freedesktop 通知（systemd 自带，无需安装） |
 
@@ -91,11 +108,12 @@ dms ipc call shotrec confirm                          # 等价于按 Enter
 - **live 阶段的防御**：键盘焦点、拖拽、按键都门控在 `phase === "selecting"`；
   抓帧回调里用 `grabSeq` 序号判断自己是否已过期，过期就删掉落盘文件，防止连按泄漏。
 - **冻结优先**：先落盘再显示遮罩，所以画面里不会出现自己的遮罩；截图直接从冻结帧裁剪，与遮罩上呈现的像素完全一致。
+- **编辑窗口零外部工具（保存除外）**：区域截图先由 daemon 一条 `ffmpeg crop` 裁出选区图当底子（`edit-base-*.png`），编辑器内 `crop` 是全图归一化的**视口**矩形——`shot` 图永不自身裁剪（保证马赛克 `drawImage` 采的是全图真实像素），外层 `clip` 容器只显示视口，重新裁剪即时改底子且已有标注按视口重映射不位移。标注全部画在透明 `Canvas` 上，保存时只 grab 标注层为带 alpha 的 PNG（`grabToImage`），再由**一条** ffmpeg `crop+scale+overlay` 合成到物理像素输出；没改任何东西时连 grab 都不做，走原 mv/裁剪链路。图片尺寸直接读 `Image.sourceSize`，不依赖外部 identify。踩坑：`DankFloatingWindow` 没有 `active` 属性，误挂 `onActiveChanged` 会让整个插件加载失败；抢键盘焦点要用 `Qt.callLater`。
 - **选区"挖洞"是真像素**：遮罩下垫一层 `clip` 容器，内嵌一张与全屏同尺寸、按选区反向偏移的冻结帧 `Image`——
   直接对选区矩形拉伸整屏图会得到缩小版画面（曾经的 BUG）。
 - **两套坐标，别搞混**（本机 niri scale 1.25 实测）：
   - `wf-recorder -g`、`setSelection`、IPC 几何参数收**逻辑坐标**。
-  - 冻结帧 PNG 是**物理像素**，`magick -crop` 裁它必须用物理坐标。
+  - 冻结帧 PNG 是**物理像素**，`ffmpeg crop=w:h:x:y` 裁它必须用物理坐标。
   - 换算走 `CompositorService.getScreenScale()`，**不要**用 `screen.devicePixelRatio`（Qt 在 1.25 下会取整成 2）。
 - **通知走统一通道**：保存成功的提示经 `org.freedesktop.Notifications.Notify`（busctl）发出——DMS 自己就是这台机器的通知守护进程，所以它和别的 App 通知一样进通知中心/弹窗体系，而不是顶部 island toast（`ToastService` 只留给错误兜底）。外部 `dms screenshot` 命令一律 `--no-notify --no-clipboard`，避免双份 toast。
   `Proc.runCommand` 按 id 去重且共享回调——并发抓帧必须用唯一 id（`shotrec.grab.${seq}`），同 id 会互相覆盖回调（曾经的漏通知 BUG）。

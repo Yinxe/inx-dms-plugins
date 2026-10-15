@@ -3,7 +3,7 @@
     "id": "shotrec",
     "name": "Shot & Rec",
     "description": "GNOME-style unified screenshot and screen recorder with an on-screen mode picker",
-    "version": "0.3.2",
+    "version": "0.4.2",
     "author": "Yinx",
     "icon": "screenshot_region",
     "type": "composite",
@@ -22,7 +22,6 @@
     "dependencies": [
         "wf-recorder",
         "wl-copy",
-        "magick",
         "ffmpeg"
     ],
     "permissions": [

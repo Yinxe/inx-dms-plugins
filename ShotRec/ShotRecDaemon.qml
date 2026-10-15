@@ -77,6 +77,7 @@ PluginComponent {
     readonly property string imageDir: Paths.expandTilde(String(root.pluginData?.imageDir || "~/Pictures/Screenshots"))
     readonly property string videoDir: Paths.expandTilde(String(root.pluginData?.videoDir || "~/Videos"))
     readonly property bool copyToClipboard: root.pluginData?.copyToClipboard ?? true
+    readonly property bool editAfterCapture: root.pluginData?.editAfterCapture ?? true
     readonly property int captureDelay: Number(root.pluginData?.captureDelay ?? 0)
     readonly property bool useHevc: root.pluginData?.useHevc ?? false
 
@@ -102,7 +103,7 @@ PluginComponent {
         Proc.runCommand("shotrec.imgdir", ["mkdir", "-p", root.imageDir], null, 0, 5000, root);
         Proc.runCommand("shotrec.videodir", ["mkdir", "-p", root.videoDir], null, 0, 5000, root);
         // Drop leftovers from a previous session (crash, kill, forced reload).
-        Proc.runCommand("shotrec.sweep", ["sh", "-c", "rm -f \"$1\"/freeze-*.png \"$1\"/window-*.png \"$1\"/direct-*.png \"$1\"/rec-*.mp4 \"$1\"/rec-*.webm \"$1\"/rec-*.mkv \"$1\"/mux-*.mp4 \"$1\"/mux-*.webm \"$1\"/mux-*.mkv \"$1\"/mix-*.wav", "sh", root.cacheDir], null, 0, 5000, null);
+        Proc.runCommand("shotrec.sweep", ["sh", "-c", "rm -f \"$1\"/freeze-*.png \"$1\"/window-*.png \"$1\"/direct-*.png \"$1\"/edit-*.png \"$1\"/rec-*.mp4 \"$1\"/rec-*.webm \"$1\"/rec-*.mkv \"$1\"/mux-*.mp4 \"$1\"/mux-*.webm \"$1\"/mux-*.mkv \"$1\"/mix-*.wav", "sh", root.cacheDir], null, 0, 5000, null);
     }
 
     Component.onDestruction: root.cleanupFreeze()
@@ -188,6 +189,8 @@ PluginComponent {
             root.stopRecording();
             return "stopping";
         }
+        if (editorWindow.visible)
+            return "editing";
         if (root.phase === "selecting" || root.phase === "live") {
             root.cancelSelector();
             return "cancelled";
@@ -300,7 +303,7 @@ PluginComponent {
      *
      * Screenshots are always PNG: the screencopy capture is already a lossless
      * PNG, so a full-screen/window shot needs no decode+re-encode — just a
-     * move. Only a region crop touches magick.
+     * move. Only a region crop touches ffmpeg.
      */
     function saveImageFrom(source, geometry, summaryText) {
         const target = `${root.imageDir}/Screenshot from ${root.timestamp()}.png`;
@@ -317,8 +320,7 @@ PluginComponent {
         };
 
         // No crop: the captured PNG already is the final image, so just move
-        // it. Running magick would decode + re-encode with default zlib for
-        // ~2.2s for zero benefit.
+        // it. Running a codec would decode + re-encode for zero benefit.
         if (!geometry) {
             Proc.runCommand(`shotrec.mv.${seq}`, ["mv", source, target], (output, exitCode) => {
                 if (exitCode !== 0) {
@@ -333,14 +335,16 @@ PluginComponent {
 
         const [origin, size] = geometry.split(" ");
         const [x, y] = origin.split(",");
+        const [w, h] = size.split("x");
         Proc.runCommand(`shotrec.save.${seq}`, [
-            "magick", source,
-            "-crop", `${size}+${x}+${y}`, "+repage",
-            "-define", "png:compression-level=2",
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+            "-i", source,
+            "-vf", `crop=${w}:${h}:${x}:${y}`,
+            "-compression_level", "2",
             target
         ], (output, exitCode) => {
             if (exitCode !== 0) {
-                root.log.warn("magick crop failed:", exitCode, output);
+                root.log.warn("ffmpeg crop failed:", exitCode, output);
                 ToastService.showError(I18n.trFor("shotrec", "Could not write the screenshot"));
                 return;
             }
@@ -369,6 +373,10 @@ PluginComponent {
     function writeShot(geometry) {
         const summary = root.shotNotifySummary || I18n.trFor("shotrec", "Screenshot saved");
         root.shotNotifySummary = "";
+        if (root.editAfterCapture) {
+            root.openEditor(root.freezePath, geometry, summary);
+            return;
+        }
         root.saveImageFrom(root.freezePath, geometry, summary);
     }
 
@@ -391,7 +399,10 @@ PluginComponent {
                 return;
             }
             const saved = String(output).trim().split("\n").pop();
-            root.saveImageFrom(saved, "", I18n.trFor("shotrec", "Screenshot saved"));
+            if (root.editAfterCapture)
+                root.openEditor(saved, "", I18n.trFor("shotrec", "Screenshot saved"));
+            else
+                root.saveImageFrom(saved, "", I18n.trFor("shotrec", "Screenshot saved"));
         }, 0, 20000, root);
     }
 
@@ -439,6 +450,101 @@ PluginComponent {
             }
             root.saveImageFrom(path, crop, I18n.trFor("shotrec", "Screenshot saved"));
         }, 0, 20000, root);
+    }
+
+    // ------------------------------------------------------------------ editor
+
+    property string editorSummary: ""
+
+    /**
+     * Open the editor on `source`. When a selection `geometry` (physical
+     * "x,y WxH") is given, the freeze frame is cropped to it FIRST so the
+     * editor's base picture is the selection itself, not the whole screen.
+     */
+    function openEditor(source, geometry, summary) {
+        root.editorSummary = summary;
+        if (!geometry) {
+            editorWindow.open(source, "");
+            return;
+        }
+        const [origin, size] = geometry.split(" ");
+        const [cx, cy] = origin.split(",");
+        const [cw, ch] = size.split("x");
+        const base = `${root.cacheDir}/edit-base-${Date.now()}.png`;
+        const seq = ++root.saveSeq;
+        Proc.runCommand(`shotrec.base.${seq}`, [
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+            "-i", source,
+            "-vf", `crop=${cw}:${ch}:${cx}:${cy}`,
+            "-compression_level", "2",
+            base
+        ], (output, exitCode) => {
+            if (exitCode !== 0) {
+                // Fall back to editing the full frame with the crop pre-applied.
+                root.log.warn("editor base crop failed:", exitCode, output);
+                editorWindow.open(source, geometry);
+                return;
+            }
+            editorWindow.open(base, "");
+        }, 0, 15000, root);
+    }
+
+    /**
+     * Editor accepted. annPath "" keeps the zero-tool mv/crop path; otherwise
+     * one ffmpeg call does crop (if any) + scales the alpha annotation layer
+     * grabbed by the editor to the physical output size and overlays it.
+     */
+    function finishEditorSave(annPath, cropGeom, outW, outH) {
+        const source = editorWindow.sourcePath;
+        const summary = root.editorSummary || I18n.trFor("shotrec", "Screenshot saved");
+        root.editorSummary = "";
+
+        if (!annPath) {
+            root.saveImageFrom(source, cropGeom, summary);
+            return;
+        }
+
+        const out = `${root.cacheDir}/edit-final-${Date.now()}.png`;
+        const seq = ++root.saveSeq;
+        let base = "[0:v]null[b];";
+        if (cropGeom) {
+            const [origin, size] = cropGeom.split(" ");
+            const [cx, cy] = origin.split(",");
+            const [cw, ch] = size.split("x");
+            base = `[0:v]crop=${cw}:${ch}:${cx}:${cy}[b];`;
+        }
+        const fc = `${base}[1:v]scale=${outW}:${outH}:flags=bicubic[a];[b][a]overlay=0:0:format=auto[v]`;
+        Proc.runCommand(`shotrec.comp.${seq}`, [
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
+            "-i", source, "-i", annPath,
+            "-filter_complex", fc,
+            "-map", "[v]",
+            "-frames:v", "1",
+            "-update", "1",
+            "-compression_level", "2",
+            out
+        ], (output, exitCode) => {
+            Proc.runCommand(`shotrec.rm.${seq}`, ["rm", "-f", annPath], null, 0, 5000, null);
+            if (exitCode !== 0) {
+                root.log.warn("annotate composite failed:", exitCode, output);
+                ToastService.showError(I18n.trFor("shotrec", "Could not write the screenshot"));
+                if (source !== root.freezePath && source.startsWith(root.cacheDir))
+                    Proc.runCommand(`shotrec.rmsrc.${seq}`, ["rm", "-f", source], null, 0, 5000, null);
+                root.cleanupFreeze();
+                return;
+            }
+            if (source !== root.freezePath && source.startsWith(root.cacheDir))
+                Proc.runCommand(`shotrec.rmsrc.${seq}`, ["rm", "-f", source], null, 0, 5000, null);
+            root.saveImageFrom(out, "", summary);
+        }, 0, 30000, root);
+    }
+
+    function finishEditorCancel() {
+        const source = editorWindow.sourcePath;
+        if (source && source !== root.freezePath && source.startsWith(root.cacheDir))
+            Proc.runCommand("shotrec.rmcancel", ["rm", "-f", source], null, 0, 5000, null);
+        root.editorSummary = "";
+        root.cleanupFreeze();
     }
 
     // --------------------------------------------------------------- recording
@@ -692,6 +798,8 @@ PluginComponent {
         }
 
         function status(): string {
+            if (editorWindow.visible)
+                return "editing";
             if (root.phase === "recording")
                 return `recording ${root.recordSeconds}s ${root.recordGeometry || "fullscreen"}`;
             return root.phase;
@@ -738,9 +846,52 @@ PluginComponent {
             root.confirmSelection();
             return "confirmed";
         }
+
+        /** Test/automation hook: act as if Enter was pressed in the editor. */
+        function editorConfirm(): string {
+            if (!editorWindow.visible)
+                return "editor not open";
+            editorWindow.saveEdit();
+            return "saving";
+        }
+
+        /** Test/automation hook: draw a diagonal arrow in the editor. */
+        function editorTestArrow(): string {
+            if (!editorWindow.visible)
+                return "editor not open";
+            editorWindow.addTestArrow();
+            return "drawn";
+        }
+
+        /** Test/automation hook: draw a mosaic stroke in the editor. */
+        function editorTestMosaic(): string {
+            if (!editorWindow.visible)
+                return "editor not open";
+            editorWindow.addTestMosaic();
+            return "drawn";
+        }
+
+        /** Test/automation hook: act as if Esc was pressed in the editor. */
+        function editorCancel(): string {
+            if (!editorWindow.visible)
+                return "editor not open";
+            editorWindow.cancelEdit();
+            return "cancelled";
+        }
     }
 
     // ------------------------------------------------------------------- UI
+
+    // Post-capture annotation editor: a real desktop window (FloatingWindow,
+    // the SshMan precedent), independent from the picker's layer surface.
+    ShotRecEditor {
+        id: editorWindow
+
+        cacheDir: root.cacheDir
+
+        onAccepted: (annPath, cropGeom, outWidth, outHeight) => root.finishEditorSave(annPath, cropGeom, outWidth, outHeight)
+        onCancelled: root.finishEditorCancel()
+    }
 
     // Fullscreen layer-shell surface: own window so it is not tied to the
     // DankModal lifecycle (opening another modal must not close the picker).

@@ -180,6 +180,12 @@ Column {
                 label: I18n.trFor("shotrec", "Copy screenshots to clipboard")
                 defaultValue: true
             }
+
+            ToggleSetting {
+                settingKey: "editAfterCapture"
+                label: I18n.trFor("shotrec", "Edit after capture")
+                defaultValue: true
+            }
         }
 
         // -------------------------------------------------------- recording
